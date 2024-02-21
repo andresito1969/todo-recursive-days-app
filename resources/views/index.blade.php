@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    @vite('resources/js/app.js')
+    <title>Todo App</title>
+    <link rel="icon" type="image/x-icon" href="check-icon.png">
+    @vite('resources/js/main.js')
 </head>
 <body>
     <div id="app"></div>
-
-    <h1>aa</h1>
 </body>
 </html>
