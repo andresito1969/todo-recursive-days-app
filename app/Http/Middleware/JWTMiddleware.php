@@ -20,6 +20,12 @@ class JWTMiddleware
     {
         try{
             $user = JWTAuth::parseToken()->authenticate();
+            $tokenUserId = $user->id;
+            $requestUserId = $request->route()->parameter('user_id');
+
+            if($tokenUserId != $requestUserId) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
         } catch (Exception $e){
             if($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
                 // invalid token
