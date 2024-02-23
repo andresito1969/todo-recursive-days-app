@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('users', UserController::class);
 Route::apiResource('tasks', TaskController::class);
 
-Route::get('{user}/task/{day}', [TaskController::class, 'getUserTasksByDay']);
+Route::get('{user}/task/{day}', [TaskController::class, 'getUserTasksByDay'])->middleware('JWTAuth');
+Route::post('/login', [UserController::class, 'login']);

@@ -8,10 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 use App\Models\Task;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -46,11 +47,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // public function tasks(): HasMany {
-    //     return $this->hasMany(Task::class);
-    // }
-
     public function tasks(): HasMany {
         return $this->hasMany(Task::class);
+    }
+
+    // Getters of jwt, we need both functions in order to make JWT possible
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

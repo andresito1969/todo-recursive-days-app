@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Resources\UserCollection;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
+
+use JWTAuth;
 
 class UserController extends Controller
 {
@@ -73,5 +76,18 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function login(Request $request) {
+        $credentials = $request->only('email', 'password');
+        $token = JWTAuth::attempt($credentials);
+        
+        if(!$token) {
+            return response()->json([
+                'error' => 'Unauthorized'
+            ], 401);
+        }
+
+        return response()->json(compact('token'));
     }
 }
