@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['namespace' => 'App\Http\Controllers'], function() {
-    Route::apiResource('users', UserController::class);
-    Route::apiResource('tasks', TaskController::class);
-});
+Route::apiResource('users', UserController::class);
+Route::apiResource('tasks', TaskController::class);
+
+Route::get('{user}/task/{day}', [TaskController::class, 'getUserTasksByDay']);

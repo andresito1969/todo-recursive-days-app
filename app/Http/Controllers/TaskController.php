@@ -80,4 +80,9 @@ class TaskController extends Controller
     {
         //
     }
+
+    public function getUserTasksByDay($userId, $day) {
+        $taskList = $this->taskRepository->getAllTasksByUserAndDay($userId, $day);
+        return new TaskCollection($taskList);
+    }
 }

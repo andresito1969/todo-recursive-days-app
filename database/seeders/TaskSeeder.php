@@ -20,7 +20,7 @@ class TaskSeeder extends Seeder
 
         // Daily Records with and without completed
         DB::table('tasks')->insert([
-            'task_date' => date('Y-m-d H:i:s'),
+            'task_date' => date('Y-m-d'),
             'text' => 'Estudiar',
             'completed' => false,
             'user_id' => $user->id
