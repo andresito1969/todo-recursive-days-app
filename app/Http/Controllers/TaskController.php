@@ -7,14 +7,24 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 
+use App\Http\Resources\TaskCollection;
+use App\Repositories\TaskRepository;
+
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    private $taskRepository;
+
+    public function __construct(TaskRepository $taskRepository) {
+        $this->taskRepository = $taskRepository;
+    }
     public function index()
     {
-        //
+        $taskList = $this->taskRepository->getAllTasks();
+
+        return new TaskCollection($taskList);
     }
 
     /**
@@ -36,9 +46,9 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show($id)
     {
-        //
+        return $this->taskRepository->getTaskById($id);
     }
 
     /**

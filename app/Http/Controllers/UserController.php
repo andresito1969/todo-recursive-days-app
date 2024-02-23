@@ -47,8 +47,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user = $this->userRepository->getUserById($id);
-        return new UserCollection($user);
+        return $this->userRepository->getUserById($id);
+        // return new UserCollection($user);
     }
 
     /**
