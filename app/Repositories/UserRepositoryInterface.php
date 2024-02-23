@@ -7,4 +7,5 @@ interface UserRepositoryInterface{
 
     public function getAllUsers();
 
+    public function getUserByMail($mail);
 }

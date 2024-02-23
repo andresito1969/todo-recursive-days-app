@@ -19,7 +19,7 @@ class TaskFactory extends Factory
     {
         $text = fake()->randomElement(['Dormir 8 horas', 'Comer Sano', 'Lavar Ropa', 'Ejercicio']);
         return [
-            'task_date' => fake()->date(),
+            'task_date' => fake()->dateTimeInInterval('-365 days', '+365 days'),
             'text' => $text,
             'completed' => fake()->boolean(),
             'user_id' => User::factory()

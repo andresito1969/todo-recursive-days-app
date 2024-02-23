@@ -9,6 +9,9 @@ use App\Http\Requests\UpdateTaskRequest;
 
 use App\Http\Resources\TaskCollection;
 use App\Repositories\TaskRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facaes\Response;
+
 
 class TaskController extends Controller
 {
@@ -20,10 +23,13 @@ class TaskController extends Controller
     public function __construct(TaskRepository $taskRepository) {
         $this->taskRepository = $taskRepository;
     }
-    public function index()
-    {
-        $taskList = $this->taskRepository->getAllTasks();
 
+    // In order to call this index method (get), we should pass query params (api/tasks?user_id=x)
+    public function index(Request $request)
+    {
+        $userId = $request->query('user_id');
+        $taskList = $this->taskRepository->getAllTasksByUser($userId);
+        
         return new TaskCollection($taskList);
     }
 

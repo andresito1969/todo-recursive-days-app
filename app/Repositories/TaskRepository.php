@@ -8,7 +8,8 @@ class TaskRepository implements TaskRepositoryInterface {
         return Task::findOrFail($id);
     }
 
-    public function getAllTasks() {
-        return Task::all();
+    public function getAllTasksByUser($userId) {
+        return Task::all()
+                ->where('user_id', $userId);
     }
 }
