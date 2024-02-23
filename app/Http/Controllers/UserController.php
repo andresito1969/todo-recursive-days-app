@@ -90,4 +90,18 @@ class UserController extends Controller
 
         return response()->json(compact('token'));
     }
+
+    public function register(Request $request) {
+
+        $credentials = $request->only('email', 'name', 'password');
+        $isRegisteredUser = $this->userRepository->getUserByMail($credentials['email']);
+
+        if($isRegisteredUser) {
+            return response()->json(['error' => 'Mail already in use'], 409);
+        } else {
+            $this->userRepository->storeUser($credentials);
+            $succeedMessage = 'User ' . $credentials['email'] . ' created!';
+            return response()->json(['succeed' => $succeedMessage], 200);
+        }
+    }
 }
