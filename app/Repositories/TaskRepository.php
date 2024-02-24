@@ -34,8 +34,6 @@ class TaskRepository implements TaskRepositoryInterface {
     }
 
     public function storeTask(array $data) : void {
-        $datex = strtotime($data["task_date"]);
-        $data["task_date"] = date('Y-m-d 00:00:00', $datex);
         $task = new Task($data);
         $task->save();
     }
