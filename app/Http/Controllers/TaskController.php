@@ -35,7 +35,8 @@ class TaskController extends Controller
             ]);
             $requestData = $request->only('text', 'completed');
             $requestData["user_id"] = $userId;
-            $requestData["task_date"] = $day;
+            $datex = strtotime($day);
+            $requestData["task_date"] = date('Y-m-d 00:00:00', $datex);
             $this->taskRepository->storeTask($requestData);
             $succeedMessage = 'Task ' . $requestData['text'] . ' created!';
             return response()->json(['succeed' => $succeedMessage], 200);
@@ -46,7 +47,7 @@ class TaskController extends Controller
         }
     }
     
-    public function updateTaskById(Request $request, $user_id) {
+    public function updateTaskById(Request $request) {
         try {
             $request->validate([
                 'text' => 'required',

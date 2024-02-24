@@ -20,14 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => ['JWTAuth']], function() {
-    // Route::apiResource('users', UserController::class);
-    // Route::apiResource('tasks', TaskController::class);
-    
-    Route::get('{user_id}/task/{day}', [TaskController::class, 'getTasksByDay']);
-    Route::post('{user_id}/task/{day}', [TaskController::class, 'storeTaskByDay']);
-    Route::patch('{user_id}/task', [TaskController::class, 'updateTaskById']);
-    Route::delete('{user_id}/task/{task_id}', [TaskController::class, 'deleteTaskById']);
+Route::group(['middleware' => ['JWTAuth'], 'prefix' => '{user_id}'], function() {
+    Route::get('/task/{day}', [TaskController::class, 'getTasksByDay']);
+    Route::post('/task/{day}', [TaskController::class, 'storeTaskByDay']);
+    Route::patch('/task', [TaskController::class, 'updateTaskById']);
+    Route::delete('/task/{task_id}', [TaskController::class, 'deleteTaskById']);
 });
 
 

@@ -23,14 +23,21 @@ class UserController extends Controller
     public function login(Request $request) {
         $credentials = $request->only('email', 'password');
         $token = JWTAuth::attempt($credentials);
-        
+        $user = JWTAuth::user();
         if(!$token) {
             return response()->json([
                 'error' => 'Unauthorized'
             ], 401);
         }
 
-        return response()->json(compact('token'));
+        return response()->json([
+            'token' => $token,
+            'token type' => 'Bearer',
+            'full_token' => 'Bearer ' . $token,
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email
+        ]);
     }
 
     public function register(Request $request) {
