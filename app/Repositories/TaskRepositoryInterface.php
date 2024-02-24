@@ -7,4 +7,11 @@ interface TaskRepositoryInterface{
 
     public function getAllTasksByUser($userId);
 
+    public function getAllTasksByUserAndDay($userId, $date);
+
+    public function storeTask(array $data) : void;
+
+    public function updateTask(array $data) : void;
+    
+    public function deleteTask($taskId) : void;
 }

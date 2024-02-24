@@ -32,4 +32,21 @@ class TaskRepository implements TaskRepositoryInterface {
                 ->where('task_date', '<', $dateTo)
                 ->get();
     }
+
+    public function storeTask(array $data) : void {
+        $datex = strtotime($data["task_date"]);
+        $data["task_date"] = date('Y-m-d 00:00:00', $datex);
+        $task = new Task($data);
+        $task->save();
+    }
+
+    public function updateTask(array $data) : void {
+        $task = $this->getTaskById($data["id"]);
+        $task->update($data);
+    }
+
+    public function deleteTask($taskId) : void {
+        $task = $this->getTaskById($taskId);
+        $task->delete();
+    }
 }

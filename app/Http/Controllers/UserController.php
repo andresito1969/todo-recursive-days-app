@@ -10,6 +10,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 
 use JWTAuth;
+use Exception;
 
 class UserController extends Controller
 {
@@ -92,16 +93,18 @@ class UserController extends Controller
     }
 
     public function register(Request $request) {
-
-        $credentials = $request->only('email', 'name', 'password');
-        $isRegisteredUser = $this->userRepository->getUserByMail($credentials['email']);
-
-        if($isRegisteredUser) {
-            return response()->json(['error' => 'Mail already in use'], 409);
-        } else {
+        try {
+            $request->validate([
+                'email' => 'required|email|unique:users,email'
+            ]);
+            $credentials = $request->only('email', 'name', 'password');
             $this->userRepository->storeUser($credentials);
             $succeedMessage = 'User ' . $credentials['email'] . ' created!';
             return response()->json(['succeed' => $succeedMessage], 200);
+        } catch(Exception $e) {
+            return response()->json([
+                'error' => 'Format del mail inválido o ya en uso'
+            ], 400);
         }
     }
 }

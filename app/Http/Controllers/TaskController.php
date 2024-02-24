@@ -12,77 +12,65 @@ use App\Repositories\TaskRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facaes\Response;
 
+use Exception;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     private $taskRepository;
 
     public function __construct(TaskRepository $taskRepository) {
         $this->taskRepository = $taskRepository;
     }
 
-    // In order to call this index method (get), we should pass query params (api/tasks?user_id=x)
-    public function index(Request $request)
-    {
-        $userId = $request->query('user_id');
-        $taskList = $this->taskRepository->getAllTasksByUser($userId);
-        
-        return new TaskCollection($taskList);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreTaskRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        return $this->taskRepository->getTaskById($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Task $task)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateTaskRequest $request, Task $task)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Task $task)
-    {
-        //
-    }
-
-    public function getUserTasksByDay($userId, $day) {
+    public function getTasksByDay($userId, $day) {
         $taskList = $this->taskRepository->getAllTasksByUserAndDay($userId, $day);
         return new TaskCollection($taskList);
+    }
+
+    public function storeTaskByDay(Request $request, $userId, $day) {
+        try {
+            $request->validate([
+                'text' => 'required',
+                'completed' => 'required|boolean'
+            ]);
+            $requestData = $request->only('text', 'completed');
+            $requestData["user_id"] = $userId;
+            $requestData["task_date"] = $day;
+            $this->taskRepository->storeTask($requestData);
+            $succeedMessage = 'Task ' . $requestData['text'] . ' created!';
+            return response()->json(['succeed' => $succeedMessage], 200);
+        } catch(Exception $e) {
+            return response()->json([
+                'error' => 'Te faltan rellenar campos   '
+            ], 400);
+        }
+    }
+    
+    public function updateTaskById(Request $request, $user_id) {
+        try {
+            $request->validate([
+                'text' => 'required',
+                'completed' => 'required|boolean'
+            ]);
+            $requestData = $request->only('text', 'completed', 'id');
+            $this->taskRepository->updateTask($requestData);
+            $succeedMessage = 'Task ' . $requestData['id'] . ' updated!';
+            return response()->json(['succeed' => $succeedMessage], 200);
+        } catch(Exception $e) {
+            return response()->json([
+                'error' => 'Te faltan rellenar campos   '
+            ], 400);
+        }  
+    }
+
+    public function deleteTaskById($user_id, $taskId) {
+        try {
+            $this->taskRepository->deleteTask($taskId);
+            return response()->json(['succeed' => 'Task deleted'], 200);
+        } catch(Exception $e) {
+            return response()->json([
+                'error' => 'An exception has been caught.'
+            ], 400);
+        }
     }
 }
