@@ -21,9 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['JWTAuth']], function() {
-    // Route::apiResource('users', UserController::class);
-    // Route::apiResource('tasks', TaskController::class);
-    
     Route::get('{user_id}/task/{day}', [TaskController::class, 'getTasksByDay']);
     Route::post('{user_id}/task/{day}', [TaskController::class, 'storeTaskByDay']);
     Route::patch('{user_id}/task', [TaskController::class, 'updateTaskById']);
