@@ -28,6 +28,8 @@ class TaskRepository implements TaskRepositoryInterface {
         $dateFrom = date('Y-m-d 00:00:00', $fromX);
         
         return Task::where('user_id', $userId)
-                ->whereBetween('task_date', [$dateFrom, $dateTo])->get();
+                ->where('task_date', '>=', $dateFrom)
+                ->where('task_date', '<', $dateTo)
+                ->get();
     }
 }
