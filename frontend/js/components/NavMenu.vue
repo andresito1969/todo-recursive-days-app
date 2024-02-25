@@ -5,19 +5,19 @@ const userData = JSON.parse(sessionStorage.getItem('userData'));
 const isLoggedIn = ref(!!userData);
 const router = useRouter();
 
-console.log('NavisLog', isLoggedIn);
-
 const logout = () => {
     sessionStorage.clear();
-    router.push('/login');
     isLoggedIn.value = false;
+    router.push('/login');
 }
 
+window.addEventListener('login', () => {
+  isLoggedIn.value = true;
+});
+
 onMounted(() => {
-    // another scope thats why we can use userData const
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
-    isLoggedIn.value = !!userData;
-    console.log('Navmount', isLoggedIn.value);
+    const userDataMounted = JSON.parse(sessionStorage.getItem('userData'));
+    isLoggedIn.value = !!userDataMounted;
 });
 </script>
 

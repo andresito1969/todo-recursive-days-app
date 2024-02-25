@@ -36,6 +36,8 @@ const loginUser = async () => {
     };
     const res = await axios.post('/api/login', data);
     sessionStorage.setItem('userData', JSON.stringify(res.data));
+    window.dispatchEvent(new Event('login'));
+
     router.push('/');
   } catch (error) {
     console.error('Error al registrar el usuario:', error);
