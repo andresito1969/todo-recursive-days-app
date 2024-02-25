@@ -63,7 +63,7 @@ class TaskController extends Controller
     public function deleteTaskById($user_id, $taskId) {
         try {
             $this->taskRepository->deleteTask($taskId);
-            return response()->json(['succeed' => 'Task deleted'], 200);
+            return response()->json(['succeed' => 'Task deleted', 'id' => $taskId], 200);
         } catch(Exception $e) {
             return response()->json([
                 'error' => 'An exception has been caught.'

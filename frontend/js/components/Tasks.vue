@@ -40,6 +40,21 @@ const toggleChecked = (task) => {
         headers: {'Authorization' : userData.full_token }
     });
 }
+
+const deleteTask = (selectedTask) => {
+    const deleteTaskReq =  '/api/' + userData.user_id + '/task/' + selectedTask.id;
+    axios.delete(deleteTaskReq, {
+        headers: {
+            'Authorization' : userData.full_token
+        }
+    }).then(res => {
+        tasks.value = tasks.value.filter((task) => {
+            return task.id !== selectedTask.id;
+        });
+
+        console.log(tasks.value);
+    });
+}
 </script>
 <template>
     <div>
@@ -47,7 +62,9 @@ const toggleChecked = (task) => {
         <div>
             <ul>
                 <li v-for="task in tasks">
-                    <input type="checkbox" v-model="task.isCompleted" @change="toggleChecked(task)">{{ task.text }}
+                    <input type="checkbox" v-model="task.isCompleted" 
+                    @change="toggleChecked(task)">{{ task.text }} 
+                    <button @click="deleteTask(task)">borrar</button>
                 </li>
             </ul>
         </div>
