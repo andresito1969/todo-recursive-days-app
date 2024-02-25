@@ -47,15 +47,11 @@ class TaskController extends Controller
         }
     }
     
-    public function updateTaskById(Request $request) {
+    public function updateTaskById(Request $request, $user_id, $task_id) {
         try {
-            $request->validate([
-                'text' => 'required',
-                'completed' => 'required|boolean'
-            ]);
             $requestData = $request->only('text', 'completed', 'id');
-            $this->taskRepository->updateTask($requestData);
-            $succeedMessage = 'Task ' . $requestData['id'] . ' updated!';
+            $this->taskRepository->updateTask($requestData, $task_id);
+            $succeedMessage = 'Task ' . $task_id . ' updated!';
             return response()->json(['succeed' => $succeedMessage], 200);
         } catch(Exception $e) {
             return response()->json([

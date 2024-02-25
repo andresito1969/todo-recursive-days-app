@@ -11,7 +11,7 @@ interface TaskRepositoryInterface{
 
     public function storeTask(array $data) : void;
 
-    public function updateTask(array $data) : void;
+    public function updateTask(array $data, $taskId) : void;
     
     public function deleteTask($taskId) : void;
 }

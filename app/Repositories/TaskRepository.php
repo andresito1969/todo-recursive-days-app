@@ -38,8 +38,8 @@ class TaskRepository implements TaskRepositoryInterface {
         $task->save();
     }
 
-    public function updateTask(array $data) : void {
-        $task = $this->getTaskById($data["id"]);
+    public function updateTask(array $data, $taskId) : void {
+        $task = $this->getTaskById($taskId);
         $task->update($data);
     }
 
