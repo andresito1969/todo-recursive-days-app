@@ -23,7 +23,6 @@ const addTask = () => {
 
 <template>
     <div>
-        {{props.date}}
         <input v-model="newTask">
         <button @click="addTask">Añade tarea</button>
     </div> 
