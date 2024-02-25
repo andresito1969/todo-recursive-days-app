@@ -9,7 +9,7 @@ interface TaskRepositoryInterface{
 
     public function getAllTasksByUserAndDay($userId, $date);
 
-    public function storeTask(array $data) : void;
+    public function storeTask(array $data);
 
     public function updateTask(array $data, $taskId) : void;
     

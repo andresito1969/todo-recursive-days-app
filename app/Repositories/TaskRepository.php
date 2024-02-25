@@ -33,9 +33,10 @@ class TaskRepository implements TaskRepositoryInterface {
                 ->get();
     }
 
-    public function storeTask(array $data) : void {
+    public function storeTask(array $data) {
         $task = new Task($data);
         $task->save();
+        return $task;
     }
 
     public function updateTask(array $data, $taskId) : void {

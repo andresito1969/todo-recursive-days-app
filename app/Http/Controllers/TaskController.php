@@ -37,9 +37,9 @@ class TaskController extends Controller
             $requestData["user_id"] = $userId;
             $datex = strtotime($day);
             $requestData["task_date"] = date('Y-m-d 00:00:00', $datex);
-            $this->taskRepository->storeTask($requestData);
+            $task = $this->taskRepository->storeTask($requestData);
             $succeedMessage = 'Task ' . $requestData['text'] . ' created!';
-            return response()->json(['succeed' => $succeedMessage], 200);
+            return response()->json(['succeed' => $succeedMessage, 'body' => $task], 200);
         } catch(Exception $e) {
             return response()->json([
                 'error' => 'Te faltan rellenar campos   '
