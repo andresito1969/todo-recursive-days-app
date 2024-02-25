@@ -29,7 +29,6 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log("huh?")
   const isAuthenticated = JSON.parse(sessionStorage.getItem('userData'));
   if (to?.meta?.requiresAuth && !isAuthenticated) {
     next('/login'); 

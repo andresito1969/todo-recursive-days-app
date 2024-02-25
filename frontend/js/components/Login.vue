@@ -16,15 +16,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const userMail = JSON.parse(sessionStorage.getItem('userMail'));
 sessionStorage.removeItem('userMail');
-const email = ref(userMail ? userMail.email : '');
+const email = ref('');
 const password = ref('');
+
+onMounted(() => email.value = userMail?.email || '');
 
 const loginUser = async () => {
   try {

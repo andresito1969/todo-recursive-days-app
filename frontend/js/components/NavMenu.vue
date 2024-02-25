@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView, useRouter } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
 const userData = JSON.parse(sessionStorage.getItem('userData'));
 const isLoggedIn = ref(!!userData);
@@ -39,6 +39,5 @@ onMounted(() => {
             </div>
         </div>
     </nav>
-    <RouterView />
 </template>
 
