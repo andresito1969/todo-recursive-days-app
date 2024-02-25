@@ -1,20 +1,3 @@
-<template>
-    <div>
-        <h1>Login</h1>
-        <form @submit.prevent="loginUser">
-          <div>
-              <label for="email">Email:</label>
-              <input type="email" id="email" v-model="email">
-          </div>
-          <div>
-              <label for="password">Contraseña:</label>
-              <input type="password" id="password" v-model="password">
-          </div>
-          <button type="submit">Logear</button>
-        </form>
-    </div>
-</template>
-
 <script setup>
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
@@ -45,3 +28,36 @@ const loginUser = async () => {
 };
 
 </script>
+
+<template>
+  <div class="login-container">
+      <h1>Login</h1>
+      <form @submit.prevent="loginUser">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" 
+            class="form-control" v-model="email">
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" 
+            class="form-control" v-model="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Logear</button>
+      </form>
+  </div>
+</template>
+
+<style>
+.login-container{
+  margin-top: 4%;
+}
+
+.form-group{
+  margin-top: 2%;
+}
+
+.btn-primary{
+  margin-top: 2%;
+}
+</style>
