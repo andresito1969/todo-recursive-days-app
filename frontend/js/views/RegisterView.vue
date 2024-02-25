@@ -1,11 +1,8 @@
 <script setup>
-import Example from '../components/Example.vue';
+import Register from '../components/Register.vue';
 </script>
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-    <Example/>
-  </div>
+  <Register/>
 </template>
   
   <style>
