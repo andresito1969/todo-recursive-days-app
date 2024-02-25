@@ -1,24 +1,3 @@
-<template>
-    <div>
-        <h1>Registro</h1>
-        <form @submit.prevent="registerUser">
-          <div>
-            <label for="name">Nombre:</label>
-            <input type="name" id="name" v-model="name">
-          </div>
-          <div>
-              <label for="email">Email:</label>
-              <input type="email" id="email" v-model="email">
-          </div>
-          <div>
-              <label for="password">Contraseña:</label>
-              <input type="password" id="password" v-model="password">
-          </div>
-          <button type="submit">Registrar</button>
-        </form>
-    </div>
-</template>
-
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
@@ -45,3 +24,41 @@ const registerUser = async () => {
 };
 
 </script>
+
+<template>
+  <div class="login-container">
+      <h1>Registro</h1>
+      <form @submit.prevent="registerUser">
+        <div class="form-group">
+          <label for="name">Nombre:</label>
+          <input type="text" id="name" 
+          class="form-control" v-model="name">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" 
+            class="form-control" v-model="email">
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" 
+            class="form-control" v-model="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+      </form>
+  </div>
+</template>
+
+<style>
+.login-container{
+  margin-top: 4%;
+}
+
+.form-group{
+  margin-top: 2%;
+}
+
+.btn-primary{
+  margin-top: 2%;
+}
+</style>
