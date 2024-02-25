@@ -22,23 +22,43 @@ onMounted(() => {
 </script>
 
 <template>
-    <nav class="navbar navbar-expand navbar-light fixed-top">
-        <div class="container">
-            <RouterLink to="/">Home</RouterLink>
-            <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item" v-if="!isLoggedIn">
+    <ul class="nav justify-content-end bg-primary">
+        <li class="nav-item">
+            <a class="nav-link active">
+                <RouterLink to="/">Home</RouterLink>
+            </a>
+        </li>
+        <li class="nav-item" v-if="!isLoggedIn">
+            <a class="nav-link active">
                 <RouterLink to="/register">Registro</RouterLink>
-                </li>
-                <li class="nav-item">
-                <RouterLink to="/login" v-show="!isLoggedIn">Login</RouterLink>
-                </li>
-                <li class="nav-item">
-                <button @click="logout" v-show="isLoggedIn">Logout</button>
-                </li>
-            </ul>
-            </div>
-        </div>
-    </nav>
+            </a>
+        </li>
+        <li class="nav-item" v-if="!isLoggedIn">
+            <a class="nav-link active">
+                <RouterLink to="/login">Login</RouterLink>
+            </a>
+        </li>
+        <li class="nav-item" v-if="isLoggedIn">
+            <a class="nav-link active logout" @click="logout">
+                Logout
+            </a>
+        </li>
+    </ul>
 </template>
 
+<style>
+.logout {
+    text-decoration: underline;
+    cursor: pointer;
+    color: white;
+}
+
+.logout:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+a {
+    color: white;
+}
+</style>
