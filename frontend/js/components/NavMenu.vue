@@ -27,7 +27,7 @@ onMounted(() => {
             <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" v-if="!isLoggedIn">
-                <RouterLink to="/register">Register</RouterLink>
+                <RouterLink to="/register">Registro</RouterLink>
                 </li>
                 <li class="nav-item">
                 <RouterLink to="/login" v-show="!isLoggedIn">Login</RouterLink>
