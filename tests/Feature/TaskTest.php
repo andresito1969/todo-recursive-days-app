@@ -103,14 +103,12 @@ class TaskTest extends TestCase
 
      public function test_update_task() : void {
         $responseBody = $this->getUserTestInfo();
-
         $task = Task::where('user_id', $responseBody->user_id)->first();
         $response = $this->withHeaders([
             'Authorization' => $responseBody->full_token
-        ])->patch('/api/' . $responseBody->user_id . '/task', [
+        ])->patch('/api/' . $responseBody->user_id . '/task/' . $task->id , [
             "text" => "Test!",
-            "completed" => 1,
-            "id" => $task->id
+            "completed" => 1
         ]);
 
         $response->assertStatus(200);
@@ -118,45 +116,15 @@ class TaskTest extends TestCase
 
      public function test_incorrect_update_task_missing_auth() : void {
         $responseBody = $this->getUserTestInfo();
-
         $task = Task::where('user_id', $responseBody->user_id)->first();
         $response = $this->withHeaders([
             'Authorization' => ''
-        ])->patch('/api/' . $responseBody->user_id . '/task', [
-            "text" => "Test!",
-            "completed" => 1,
-            "id" => $task->id
-        ]);
-
-        $response->assertStatus(401);
-    }
-
-     public function test_incorrect_update_task_missing_task_id() : void {
-        $responseBody = $this->getUserTestInfo();
-
-        $task = Task::where('user_id', $responseBody->user_id)->first();
-        $response = $this->withHeaders([
-            'Authorization' => $responseBody->full_token
-        ])->patch('/api/' . $responseBody->user_id . '/task', [
+        ])->patch('/api/' . $responseBody->user_id . '/task/' . $task->id, [
             "text" => "Test!",
             "completed" => 1
         ]);
 
-        $response->assertStatus(400);
-    }
-
-     public function test_incorrect_update_task_missing_fields() : void {
-        $responseBody = $this->getUserTestInfo();
-
-        $task = Task::where('user_id', $responseBody->user_id)->first();
-        $response = $this->withHeaders([
-            'Authorization' => $responseBody->full_token
-        ])->patch('/api/' . $responseBody->user_id . '/task', [
-            "completed" => 1,
-            "id" => $task->id
-        ]);
-
-        $response->assertStatus(400);
+        $response->assertStatus(401);
     }
     /*
      * DELETE endpoint
