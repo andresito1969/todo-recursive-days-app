@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue';
 import axios from 'axios';
+import AddTask from './AddTask.vue';
 const userData = JSON.parse(sessionStorage.getItem('userData'));
 const props = defineProps(['date']);
 const date = ref(props.date);
@@ -51,4 +52,5 @@ const toggleChecked = (task) => {
             </ul>
         </div>
     </div>
+    <AddTask :date="date" :tasks="tasks"/>
 </template>
