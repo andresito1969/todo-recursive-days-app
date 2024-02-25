@@ -66,7 +66,6 @@ const editTaskText = (task)  => {
 </script>
 <template>
     <div>
-        <h2>Tareas para la fecha: {{ date }}</h2>
         <div>
             <ul>
                 <li v-for="task in tasks">

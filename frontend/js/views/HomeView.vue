@@ -21,18 +21,15 @@ const handleDate = (dayNumber) => {
 </script>
 <template>
   <div class="home">
-  <h1>Bienvenido al listado de tus tareas {{ name }}</h1>
-    <Paginate @change-date="handleDate"/>
+    <h1>Bienvenido al listado de tus tareas {{ name }}</h1>
+    <Paginate @change-date="handleDate" :date="selectedDate"/>
     <Tasks :date="selectedDate"/>
   </div>
 </template>
   
   <style>
-  @media (min-width: 1024px) {
-    .about {
-      min-height: 10px;
-      align-items: center;
-    }
+  .home{
+    margin-top: 3%;
   }
   </style>
   
