@@ -51,8 +51,16 @@ const deleteTask = (selectedTask) => {
         tasks.value = tasks.value.filter((task) => {
             return task.id !== selectedTask.id;
         });
+        return res;
+    });
+}
 
-        console.log(tasks.value);
+const editTaskText = (task)  => {
+    const patchTaskReq =  '/api/' + userData.user_id + '/task/' + task.id;
+    axios.patch(patchTaskReq, {
+        'text' : task.text
+    }, {
+        headers: {'Authorization' : userData.full_token }
     });
 }
 </script>
@@ -63,7 +71,8 @@ const deleteTask = (selectedTask) => {
             <ul>
                 <li v-for="task in tasks">
                     <input type="checkbox" v-model="task.isCompleted" 
-                    @change="toggleChecked(task)">{{ task.text }} 
+                    @change="toggleChecked(task)"><input v-model="task.text"> 
+                    <button @click="editTaskText(task)">editar</button>
                     <button @click="deleteTask(task)">borrar</button>
                 </li>
             </ul>
