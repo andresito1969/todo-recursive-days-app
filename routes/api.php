@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['JWTAuth'], 'prefix' => '{user_id}'], function() {
     Route::get('/task/{day}', [TaskController::class, 'getTasksByDay']);
     Route::post('/task/{day}', [TaskController::class, 'storeTaskByDay']);
-    Route::patch('/task', [TaskController::class, 'updateTaskById']);
+    Route::patch('/task/{task_id}', [TaskController::class, 'updateTaskById']);
     Route::delete('/task/{task_id}', [TaskController::class, 'deleteTaskById']);
 });
 
