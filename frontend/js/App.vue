@@ -5,11 +5,9 @@ import {RouterView} from 'vue-router';
 
 <template>
   <NavMenu/>
-  <div class="auth-wrapper">
-      <div class="auth-inner">
-        <RouterView />
-      </div>
-    </div>
+  <div class="container">
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
