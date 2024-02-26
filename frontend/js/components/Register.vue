@@ -21,6 +21,7 @@ const registerUser = async () => {
     router.push('/login', data);
   } catch (error) { 
     errorMessage.value = error?.response?.data?.error
+    setTimeout(() => errorMessage.value = "", 3000);
     console.error('Error al registrar el usuario:', error);
   }
 };

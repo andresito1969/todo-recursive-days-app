@@ -25,6 +25,7 @@ const loginUser = async () => {
     router.push('/');
   } catch (error) {
     errorMessage.value = error?.response?.data?.error
+    setTimeout(() => errorMessage.value = "", 3000);
     console.error('Error al logear el usuario:', error);
   }
 };
