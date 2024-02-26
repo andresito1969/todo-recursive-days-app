@@ -13,7 +13,7 @@ const prevDay = () => {
 </script>
 
 <template>
-  <div class="row justify-content-md-center">
+  <div class="row justify-content-md-center paginate-container">
     <div class="col col-lg-1">
       <button class="btn btn-primary"
       @click="prevDay">Previo</button>
@@ -27,3 +27,9 @@ const prevDay = () => {
     </div>
   </div>
 </template>
+
+<style>
+.paginate-container{
+  margin-top: 2%;
+}
+</style>
