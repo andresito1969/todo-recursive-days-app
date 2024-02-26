@@ -15,6 +15,8 @@ const getTaskRequest = (date) => {
             'Authorization' : userData.full_token
         }
     }).then(response => response.data.data.map((values)=> {
+        //mapper needed in order to set true/false to boolean completed DDBB value
+        // the reason is sql only saves 0 and 1, and our checkbox checked only checks for true and false, not for falsy values
         values.isCompleted = !!values.completed;
         return values
     })).then(response => {
