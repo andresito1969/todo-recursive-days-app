@@ -13,7 +13,7 @@ class UserTest extends TestCase
         return $this->post('/api/register', [
             'name' => 'Andrés',
             'email' => $testMail,
-            'password' => bcrypt('test12345')
+            'password' => 'test12345'
         ]);
     }
 

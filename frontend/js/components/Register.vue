@@ -7,6 +7,7 @@ const router = useRouter();
 const email = ref('');
 const name = ref('');
 const password = ref('');
+const errorMessage = ref('');
 
 const registerUser = async () => {
   try {
@@ -18,7 +19,8 @@ const registerUser = async () => {
     await axios.post('/api/register', data);
     sessionStorage.setItem('userMail', JSON.stringify({email: email.value}));
     router.push('/login', data);
-  } catch (error) {
+  } catch (error) { 
+    errorMessage.value = error?.response?.data?.error
     console.error('Error al registrar el usuario:', error);
   }
 };
@@ -46,6 +48,9 @@ const registerUser = async () => {
         </div>
         <button type="submit" class="btn btn-primary">Registrar</button>
       </form>
+      <div class="alert alert-danger" role="alert" v-if="errorMessage">
+        {{ errorMessage }}
+      </div>
   </div>
 </template>
 
@@ -59,6 +64,10 @@ const registerUser = async () => {
 }
 
 .btn-primary{
+  margin-top: 2%;
+}
+
+.alert-danger {
   margin-top: 2%;
 }
 </style>
