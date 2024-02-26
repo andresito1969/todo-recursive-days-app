@@ -6,6 +6,7 @@ const userData = JSON.parse(sessionStorage.getItem('userData'));
 const props = defineProps(['date']);
 const date = ref(props.date);
 const tasks = ref();
+const modalTask = ref();
 
 const getTaskRequest = (date) => {
     const getTaskReq = '/api/' + userData.user_id + '/task/' + date;
@@ -63,6 +64,8 @@ const editTaskText = (task)  => {
         headers: {'Authorization' : userData.full_token }
     });
 }
+
+const setModalTask = (task) => modalTask.value = task;
 </script>
 <template>
     <div class="tasks-container">
@@ -77,16 +80,60 @@ const editTaskText = (task)  => {
                 <input v-model="task.text" class=" form-control"> 
             </div>
             <div class="col-sm-2 text-center">
-                <button @click="editTaskText(task)"
-                class="btn btn-primary"><i class="bi bi-pencil"></i></button>
+                <button @click="setModalTask(task)" class="btn btn-primary"
+                data-toggle="modal" data-target="#editModal"><i class="bi bi-pencil"></i></button>
             </div>
             <div class="col-sm-2 text-start">
-                <button @click="deleteTask(task)"
-                class="btn btn-primary"><i class="bi bi-trash"></i></button>
+                <button class="btn btn-primary" @click="setModalTask(task)"
+                data-toggle="modal" data-target="#deleteModal"><i class="bi bi-trash"></i></button>
             </div>
         </div>
     </div>
     <AddTask :date="date" :tasks="tasks"/>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Estás seguro de que quieres borrar la tarea?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Esta acción es definitiva.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button @click="deleteTask(modalTask)" type="button" class="btn btn-danger"
+                data-dismiss="modal">Borrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">La siguiente tarea va a ser editada.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Confirma para guardar.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button @click="editTaskText(modalTask)" type="button" class="btn btn-success"
+                data-dismiss="modal">Confirmar</button>
+            </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style>
