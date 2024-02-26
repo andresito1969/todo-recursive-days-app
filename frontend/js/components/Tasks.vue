@@ -65,17 +65,37 @@ const editTaskText = (task)  => {
 }
 </script>
 <template>
-    <div>
-        <div>
-            <ul>
-                <li v-for="task in tasks">
-                    <input type="checkbox" v-model="task.isCompleted" 
-                    @change="toggleChecked(task)"><input v-model="task.text"> 
-                    <button @click="editTaskText(task)">editar</button>
-                    <button @click="deleteTask(task)">borrar</button>
-                </li>
-            </ul>
+    <div class="tasks-container">
+        <div v-for="task in tasks" class="row justify-content-md-center">
+            <div class="col col-sm-2 text-end">
+                <input type="checkbox" v-model="task.isCompleted" 
+                @change="toggleChecked(task)" class="form-check-input check-item">
+            </div>
+            
+
+            <div class="col-sm-6">
+                <input v-model="task.text" class=" form-control"> 
+            </div>
+            <div class="col-sm-2 text-center">
+                <button @click="editTaskText(task)"
+                class="btn btn-primary"><i class="bi bi-pencil"></i></button>
+            </div>
+            <div class="col-sm-2 text-start">
+                <button @click="deleteTask(task)"
+                class="btn btn-primary"><i class="bi bi-trash"></i></button>
+            </div>
         </div>
     </div>
     <AddTask :date="date" :tasks="tasks"/>
 </template>
+
+<style>
+.tasks-container{
+    margin-top: 3%;
+}
+
+.check-item {
+    margin-top: 5%;
+}
+
+</style>
