@@ -8,6 +8,7 @@ const userMail = JSON.parse(sessionStorage.getItem('userMail'));
 sessionStorage.removeItem('userMail');
 const email = ref('');
 const password = ref('');
+const errorMessage = ref('');
 
 onMounted(() => email.value = userMail?.email || '');
 
@@ -23,7 +24,8 @@ const loginUser = async () => {
 
     router.push('/');
   } catch (error) {
-    console.error('Error al registrar el usuario:', error);
+    errorMessage.value = error?.response?.data?.error
+    console.error('Error al logear el usuario:', error);
   }
 };
 
@@ -45,6 +47,9 @@ const loginUser = async () => {
         </div>
         <button type="submit" class="btn btn-primary">Logear</button>
       </form>
+      <div class="alert alert-danger" role="alert" v-if="errorMessage">
+        {{ errorMessage }}
+      </div>
   </div>
 </template>
 
@@ -58,6 +63,10 @@ const loginUser = async () => {
 }
 
 .btn-primary{
+  margin-top: 2%;
+}
+
+.alert-danger {
   margin-top: 2%;
 }
 </style>
