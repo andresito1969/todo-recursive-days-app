@@ -22,8 +22,26 @@ const addTask = () => {
 </script>
 
 <template>
-    <div>
-        <input v-model="newTask">
-        <button @click="addTask">Añade tarea</button>
-    </div> 
+    <div class="row justify-content-center add-task-container">
+        <div class="col-md-6">
+            <div class="d-flex align-items-center">
+                <div class="col-auto">
+                    <input v-model="newTask" class="form-control mb-2">
+                </div>
+                <div class="col-auto button-item">
+                    <button @click="addTask" class="btn btn-primary mb-2">Añade tarea</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
+
+<style>
+.add-task-container{
+    margin-top: 3%;
+}
+
+.button-item {
+    margin-left: 5%;
+}
+</style>
