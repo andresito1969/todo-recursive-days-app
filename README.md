@@ -1,4 +1,5 @@
 ## Important
+```
 php artisan make:model {Name} --all <- cambiar {Name} por nuestro modelo ej: User
 	Este comando de la CLI nos creará los archivos de factorías, migraciones, seeders, controller etc. Necesarios para nuestro modelaje de datos.
 php artisan make:resource {Name}Resource <- cambiar {Name} por nuestro recurso ej: UserResource
@@ -26,7 +27,7 @@ php artisan test --filter {Name}
 php artisan test --filter ApiTest
 php artisan make:test HolaTest
 php artisan migrate:refresh --seed
-
+```
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
