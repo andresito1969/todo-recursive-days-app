@@ -1,3 +1,32 @@
+## Important
+php artisan make:model {Name} --all <- cambiar {Name} por nuestro modelo ej: User
+	Este comando de la CLI nos creará los archivos de factorías, migraciones, seeders, controller etc. Necesarios para nuestro modelaje de datos.
+php artisan make:resource {Name}Resource <- cambiar {Name} por nuestro recurso ej: UserResource
+	Nos permite crear el archivo que contendrá el método para asegurarnos que la api siempre devuelva un JSON
+php artisan make:controller {Name}Controller --resource
+	Este comando nos creará el archivo de controller con los métodos de los recursos típicos (verbos REST) que usará nuestra Api, para cada
+	modelo de datos. (Normalmente no lo necesitaremos porque el php artisan make:model {name} --all, ya te lo crea).
+php artisan migrate:fresh --seed
+	Migramos el modelo a nuestra base de datos y reiniciamos los seeders (datos principalmente de testeo o iniciales)
+php artisan jwt:secret
+	Con este comando invalidamos todos los tokens de sesión, puede ser útil para reiniciar tokens cada día por ejemplo y añadir seguridad.
+php artisan make:middleware {Name}
+	Nos permite crear el middleware para proteger las rutas, de lo contrario sin este nivel de validación cualquier usuario podría acceder
+	a cualquier ruta, esto significa, desde acceder a información sensible de otros usuarios hasta por ejemplo acceder a información
+	que solo usuarios autenticados deberían poder tener disponible.
+php artisan make:test {Name}
+	Nos permite crear los tests de integración/feature para poder tener más consistencia en nuestra app, con el parámetro
+	--unit , podemos crear tests unitarios.
+php artisan test
+	Podemos ejecutar todos los tests de la aplicación!
+php artisan test --filter {Name}
+	Ejecuta una clase (fichero específico) de test, podemos también llamar a los métodos, para en caso de tener muchos tests solo ejecutar 1 específico y no "tardar".
+
+
+php artisan test --filter ApiTest
+php artisan make:test HolaTest
+php artisan migrate:refresh --seed
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
