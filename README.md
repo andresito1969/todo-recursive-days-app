@@ -1,3 +1,34 @@
+##Overview
+This project is a monolytic project using laravel backend for the endpoints and vue3 for the frontend.
+
+We used hexagonal architecture in the backend, in summarize of how the backend works:
+
+We have a router for the web that will instance for any route matched our frontend.
+
+Then we have an ApiREST router that will contain all the routes of our endpoints.
+
+These routes will use the logic in our controllers, in order to performe the desired behaivour.
+
+In our controllers we will have the logic needed to do the CRUD or to authenticate.
+
+First in order to execute the CRUD we will have the set of rules in our controller and if everything goes right it will call the repository, repository pattern is basically a class that can see the model and is the only class that can perform the CRUD operations.
+
+We can perform the repository operations thanks to the model, in our model we will have the attributes that our entities have.
+
+If something fails, our controller will inform with a 40x error and the message.
+
+Second our Auth api has the login/register/logout and uses JWT in order to provide safe tokens for the manage of  api routes.
+
+We also protected our routes with the middleware and jwt.
+
+From the database we have the migrations and also the factories.
+
+And finally we have some integration tests.
+
+
+For the frontend we have a simple app that has some views that are mounted with the components, and use axios to have a communication with the backend.
+We have also a router that will manage our client views and also protect some routes.
+
 ## Important
 ```
 php artisan make:model {Name} --all <- cambiar {Name} por nuestro modelo ej: User
